@@ -3,10 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
     <title>Urna Eletrônica</title>
 </head>
 <body>
-    <button type="button" onclick="urnaEletronica()">Iniciar</button>
+    <section class="wrapper">
+        <div class="display"></div>
+        <div class="teclado" id="teclado">
+            <ul class="num">
+                <li><button type="button">1</button></li>
+                <li><button type="button">2</button></li>
+                <li><button type="button">3</button></li>
+                <li><button type="button">4</button></li>
+                <li><button type="button">5</button></li>
+                <li><button type="button">6</button></li>
+                <li><button type="button">7</button></li>
+                <li><button type="button">8</button></li>
+                <li><button type="button">9</button></li>
+                <li><button type="button">0</button></li>
+            </ul>
+            <ul class="option">
+                <li><button>Branco</button></li>
+                <li><button>Corrige</button></li>
+                <li><button>Confirma</button></li>
+            </ul>
+        </div>
+        <button class="start" type="button" onclick="urnaEletronica()">Iniciar</button>
+    </section>
     <script src="./urnaEletronica.js"></script>
 </body>
 </html>
