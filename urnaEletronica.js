@@ -1,17 +1,22 @@
+//declaração de variaveis globais
+let opcao, totalVotos = 0, candidato1 = 0, candidato2 = 0, candidato3 = 0, votosBranco = 0, votosNulo = 0, porcentagemVotosC1 = 0, porcentagemVotosC2 = 0, porcentagemVotosC3 = 0, porcentagemVotosBranco = 0, porcentagemVotosNulo = 0, nomeCandidato1, nomeCandidato2, nomeCandidato3;
+
 function urnaEletronica() {
-    
-    let opcao, totalVotos = 0, candidato1 = 0, candidato2 = 0, candidato3 = 0, votosBranco = 0, votosNulo = 0, porcentagemVotosC1
+    let votacao = true
+    totalVotos = 0, candidato1 = 0, candidato2 = 0, candidato3 = 0, votosBranco = 0, votosNulo = 0, porcentagemVotosC1 = 0, porcentagemVotosC2 = 0, porcentagemVotosC3 = 0, porcentagemVotosBranco = 0, porcentagemVotosNulo = 0;
 
-    // do {
-    //     //opcao = parseInt(prompt('Digite a opção:'))
+    //solicita o nome dos candidatos ao usuário
+    nomeCandidato1 = prompt("Digite o nome do candidato 1:")
+    console.log(nomeCandidato1)
+    nomeCandidato2 = prompt("Digite o nome do candidato 2:")
+    console.log(nomeCandidato2)
+    nomeCandidato3 = prompt("Digite o nome do candidato 3:")
+    console.log(nomeCandidato3)
 
-    //     console.log("Opção 1 selecionada")
-    //     contador++ 
-    // } while (opcao === 1)
-    console.log(document.getElementsByClassName('num'))
+    //console.log(document.getElementsByClassName('num'))
     document.getElementById('teclado').addEventListener('click', event => {
-        console.log(event.target.innerText)
         if (event.target.type === 'button') {
+            //adiciona votos ao candidato de acordo com o número pressionado
             if (event.target.innerText == 1) {
                 candidato1++
                 totalVotos++
@@ -27,22 +32,39 @@ function urnaEletronica() {
             } else if (event.target.innerText == 0) {
                 votosNulo++
             } else if (event.target.innerText == "Confirma") {
-                if (candidato1 > candidato2 &&
-                candidato1 > candidato3    
-                ) {
-                    console.log('Candidato 1 é o vencedor')
-                } else if (candidato2 > candidato1 &&
-                    candidato2 > candidato3    
-                ) {
-                        console.log('Candidato 2 é o vencedor')
-                } else if (candidato3 > candidato2 &&
-                    candidato3 > candidato1    
-                ) {
-                        console.log('Candidato 3 é o vencedor')
-                }
+                calculaVotos()
             }
+            //console.log(event.target.innerText)
         }
     })
 }
 
-urnaEletronica()
+function calculaVotos() {
+    //exibe o candidato vencedor
+    if (candidato1 > candidato2 &&
+        candidato1 > candidato3    
+        ) {
+            console.log(nomeCandidato1+' é o vencedor')
+        } else if (candidato2 > candidato1 &&
+            candidato2 > candidato3    
+        ) {
+                console.log(nomeCandidato2+' é o vencedor')
+        } else if (candidato3 > candidato2 &&
+            candidato3 > candidato1    
+        ) {
+                console.log(nomeCandidato3+' é o vencedor')
+        }
+
+    //calcula porcentagem de votos
+    porcentagemVotosC1 = (candidato1/totalVotos) * 100    
+    porcentagemVotosC2 = (candidato2/totalVotos) * 100    
+    porcentagemVotosC3 = (candidato3/totalVotos) * 100    
+    porcentagemVotosBranco = (votosBranco/totalVotos) * 100    
+    porcentagemVotosNulo = (votosNulo/totalVotos) * 100
+    console.log("Candidato 1 recebeu:"+porcentagemVotosC1.toFixed(1)+"% de votos")    
+    console.log("Candidato 2 recebeu:"+porcentagemVotosC2.toFixed(1)+"% de votos")    
+    console.log("Candidato 3 recebeu:"+porcentagemVotosC3.toFixed(1)+"% de votos")    
+    console.log("Votos Brancos:"+porcentagemVotosBranco.toFixed(1)+"%")    
+    console.log("Votos Nulos:"+porcentagemVotosNulo.toFixed(1)+"%")    
+    return    
+}
