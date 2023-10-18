@@ -1,11 +1,11 @@
-//declaração de variaveis globais
+//----------------------------------------------declaração de variaveis globais----------------------------------------------
 let opcao, totalVotos = 0, candidato1 = 0, candidato2 = 0, candidato3 = 0, votosBranco = 0, votosNulo = 0, porcentagemVotosC1 = 0, porcentagemVotosC2 = 0, porcentagemVotosC3 = 0, porcentagemVotosBranco = 0, porcentagemVotosNulo = 0, nomeCandidato1, nomeCandidato2, nomeCandidato3;
 
 function urnaEletronica() {
-    let votacao = true
+    let encerra = false
     totalVotos = 0, candidato1 = 0, candidato2 = 0, candidato3 = 0, votosBranco = 0, votosNulo = 0, porcentagemVotosC1 = 0, porcentagemVotosC2 = 0, porcentagemVotosC3 = 0, porcentagemVotosBranco = 0, porcentagemVotosNulo = 0;
 
-    //solicita o nome dos candidatos ao usuário
+    //----------------------------------------------solicita o nome dos candidatos ao usuário----------------------------------------------
     nomeCandidato1 = prompt("Digite o nome do candidato 1:")
     console.log(nomeCandidato1)
     nomeCandidato2 = prompt("Digite o nome do candidato 2:")
@@ -14,9 +14,10 @@ function urnaEletronica() {
     console.log(nomeCandidato3)
 
     //console.log(document.getElementsByClassName('num'))
+    //----------------------------------------------teclado----------------------------------------------
     document.getElementById('teclado').addEventListener('click', event => {
         if (event.target.type === 'button') {
-            //adiciona votos ao candidato de acordo com o número pressionado
+            //----------------------------------------------adiciona votos ao candidato de acordo com o número pressionado----------------------------------------------
             if (event.target.innerText == 1) {
                 candidato1++
                 totalVotos++
@@ -29,18 +30,24 @@ function urnaEletronica() {
             } else if (event.target.innerText == "Branco") {
                 votosBranco++
                 totalVotos++
-            } else if (event.target.innerText == 0) {
-                votosNulo++
+            } else if(event.target.innerText == "corrige") {
+                //
             } else if (event.target.innerText == "Confirma") {
                 calculaVotos()
+                encerra = confirm("Deseja encerrar votação?")
+                console.log(encerra);
+                return event
+            } else {
+                votosNulo++
             }
             //console.log(event.target.innerText)
         }
     })
+    if (encerra) return urnaEletronica
 }
 
 function calculaVotos() {
-    //exibe o candidato vencedor
+    //----------------------------------------------exibe o candidato vencedor----------------------------------------------
     if (candidato1 > candidato2 &&
         candidato1 > candidato3    
         ) {
@@ -55,7 +62,7 @@ function calculaVotos() {
                 console.log(nomeCandidato3+' é o vencedor')
         }
 
-    //calcula porcentagem de votos
+    //----------------------------------------------calcula porcentagem de votos----------------------------------------------
     porcentagemVotosC1 = (candidato1/totalVotos) * 100    
     porcentagemVotosC2 = (candidato2/totalVotos) * 100    
     porcentagemVotosC3 = (candidato3/totalVotos) * 100    
