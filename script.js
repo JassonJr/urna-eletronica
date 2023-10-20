@@ -1,14 +1,22 @@
+let voto = 0, votosCandidato1 = 0, votosCandidato2 = 0, votosCandidato3 = 0, votosBrancos = 0, votosNulos = 0, totalVotos = 0, nomeGanhador, votosGanhador = 0, ganhador = true, encerrarVotacao = false, confirmaVoto = false;
+
+let nomeCandidato1;
+let nomeCandidato2;
+let nomeCandidato3;
+
+let confirmaSom = document.getElementById("confirma")
+
+
 function urnaEletronica() {
-    let voto = 0, votosCandidato1 = 0, votosCandidato2 = 0, votosCandidato3 = 0, votosBrancos = 0, votosNulos = 0, totalVotos = 0, nomeGanhador, votosGanhador = 0, ganhador = true, encerrarVotacao = false; 
     console.log('Iniciando o programa')
     console.clear()
 
     console.log('** CONFIGURAÇÃO DA URNA **')
     let senhaMesario = parseInt(prompt('Configure a senha do mesário: '))
     do {
-        let nomeCandidato1 = prompt('Digite o nome do primeiro candidato')
-        let nomeCandidato2 = prompt('Digite o nome do segundo candidato')
-        let nomeCandidato3 = prompt('Digite o nome do terceiro candidato')
+        nomeCandidato1 = prompt('Digite o nome do primeiro candidato')
+        nomeCandidato2 = prompt('Digite o nome do segundo candidato')
+        nomeCandidato3 = prompt('Digite o nome do terceiro candidato')
 
         console.log('** NOMES DOS CANDIDATOS **')
         console.log('Candidato 1: '+ nomeCandidato1)
@@ -28,21 +36,29 @@ function urnaEletronica() {
         console.log('(8) Nulo')
         voto = parseInt(prompt('Digite sua opção de voto'))
         totalVotos++
-        if (voto == 1) {
+        usuarioConfirmaVoto()
+        if (voto == 1 && confirmaVoto) {
             votosCandidato1++
-        } else if (voto == 2) {
+            confirmaSom.play()
+        } else if (voto == 2 && confirmaVoto) {
             votosCandidato2++
-        } else if (voto == 3) {
+            confirmaSom.play()
+        } else if (voto == 3 && confirmaVoto) {
             votosCandidato3++
-        } else if (voto == 5) {
+            confirmaSom.play()
+        } else if (voto == 5 && confirmaVoto) {
             votosBrancos++
+            confirmaSom.play()
         } else if (voto === senhaMesario) {
             encerrarVotacao = confirm('Deseja encerrar a votação?')
             if(encerrarVotacao) {
                 totalVotos--
             }
         } else {
-            if(confirm('Voto nulo selecionado, deseja contiuar?')) votosNulos++
+            if(confirm('Voto Nulo selecionado, confirma esta opção de voto?')) {
+                votosNulos++
+                confirmaSom.play()
+            }
             else totalVotos--
         }
     } while(encerrarVotacao !== true)
@@ -89,4 +105,17 @@ function urnaEletronica() {
         return
     }
 
+}
+
+function usuarioConfirmaVoto() {
+if (voto == 1) {
+    confirmaVoto = confirm('Candidato '+ nomeCandidato1 + ' selecionado, confirma esta opção de voto?')
+} else if (voto == 2) {
+    confirmaVoto = confirm('Candidato '+ nomeCandidato2 + ' selecionado, confirma esta opção de voto?')
+} else if (voto == 3) {
+    confirmaVoto = confirm('Candidato '+ nomeCandidato3 + ' selecionado, confirma esta opção de voto?')
+} else if (voto == 5) {
+    confirmaVoto = confirm('Voto Branco selecionado, confirma esta opção de voto?')
+}
+return 
 }
