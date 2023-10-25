@@ -5,7 +5,11 @@ let nomeCandidato2;
 let nomeCandidato3;
 
 let confirmaSom = document.getElementById("confirma")
-
+// let audio = document.createElement('audio')
+// document.body.appendChild(audio);
+// audio.src = "./audio/confirmacao.mp3"
+// audio.autoplay = true
+// audio.muted = true
 
 function urnaEletronica() {
     console.log('Iniciando o programa')
@@ -104,7 +108,6 @@ function urnaEletronica() {
         console.log('Não houve votação nesta urna')
         return
     }
-
 }
 
 function usuarioConfirmaVoto() {
@@ -119,3 +122,19 @@ if (voto == 1) {
 }
 return 
 }
+
+//Função de criptografia
+// const text =
+//   "An obscure body in the S-K System, your majesty. The inhabitants refer to it as the planet Earth.";
+
+async function digestMessage(message) {
+  const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
+  const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join(""); // convert bytes to hex string
+  return hashHex;
+}
+
+//digestMessage().then((digestHex) => console.log(digestHex));
