@@ -4,6 +4,18 @@ let nomeCandidato1;
 let nomeCandidato2;
 let nomeCandidato3;
 
+let candidatos = [[17,"Bolsonaryo"],[13,"Lucas"],[5,"Juliana"],[8,"Thiago"],[22,"Kauan"]]
+
+//Verifica voto para candidatos pré-configurados
+for(let i=0; i<candidatos.length;i++) {
+    for(let j=0; j<candidatos[i].length;j++) {
+        //console.log(candidatos[i][j])
+        if(candidatos[i][j]==8) console.log(candidatos[i][1])
+    }
+}
+
+let data
+
 let confirmaSom = document.getElementById("confirma")
 // let audio = document.createElement('audio')
 // document.body.appendChild(audio);
@@ -28,10 +40,9 @@ function urnaEletronica() {
         console.log('Candidato 3: '+ nomeCandidato3)
  
     } while (!confirm('Se o nomes dos candidatos estão corretos, clique em OK para continuar ou CANCELAR para voltar e digitar novamente.'))
-
+    data = new Date()
     do {
         console.clear()
-        
         console.log('Opções de voto:')
         console.log('(1) Candidato 1: '+ nomeCandidato1)
         console.log('(2) Candidato 2: '+ nomeCandidato2)
@@ -39,6 +50,14 @@ function urnaEletronica() {
         console.log('(5) Branco')
         console.log('(8) Nulo')
         voto = parseInt(prompt('Digite sua opção de voto'))
+        
+        // //Verifica voto para candidatos pré-configurados
+        // for(let i=0; i<candidatos.length;i++) {
+        //     for(let j=0; j<candidatos[i].length;j++) {
+        //         console.log(candidatos[i[j]])
+        //     }
+        // }
+        
         totalVotos++
         usuarioConfirmaVoto()
         if (voto == 1 && confirmaVoto) {
@@ -72,6 +91,9 @@ function urnaEletronica() {
         console.clear()
         //saida para o usuario: boletim de urna
         console.log('**BOLETIM DE URNA**')
+        console.log(`Data de inicio da votação: ${data}`)
+        data = new Date()
+        console.log(`Data de término da votação: ${data}`)
         console.log('Total de votos: ' + totalVotos)
         console.log('Total de votos do candidato 1: ' + votosCandidato1 + ' votos ('+(votosCandidato1 / totalVotos * 100).toFixed(1)+'%)')
         console.log('Total de votos do candidato 2: ' + votosCandidato2 + ' votos ('+(votosCandidato2 / totalVotos * 100).toFixed(1)+'%)')
