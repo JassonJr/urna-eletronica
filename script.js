@@ -23,6 +23,23 @@ let confirmaSom = document.getElementById("confirma")
 // audio.autoplay = true
 // audio.muted = true
 
+function verificarIntegridadeUrna(){
+    fetch('script.js')
+    .then(conteudo => conteudo.text())
+    .then(conteudo => CryptoJS.SHA256(conteudo).toString())
+    .then(hashUrnaAtual => {
+        fetch('./hashVerificado')
+        .then(conteudo => conteudo.text())
+        .then(hashVerificado => {
+            if(hashUrnaAtual === hashVerificado) console.log('Urna íntegra')
+            else console.log('HASHES DIFERENTES, URNA ADULTERADA')
+
+            console.log(`Hash esperado: ${hashVerificado}`)
+            console.log(`Hash da urna: ${hashUrnaAtual}`)
+        })
+    })
+}
+
 function urnaEletronica() {
     console.log('Iniciando o programa')
     console.clear()
@@ -89,6 +106,7 @@ function urnaEletronica() {
     //
     if (totalVotos > 0) {
         console.clear()
+        verificarIntegridadeUrna()
         //saida para o usuario: boletim de urna
         console.log('**BOLETIM DE URNA**')
         console.log(`Data de inicio da votação: ${data}`)
@@ -145,18 +163,21 @@ if (voto == 1) {
 return 
 }
 
-//Função de criptografia
-// const text =
-//   "An obscure body in the S-K System, your majesty. The inhabitants refer to it as the planet Earth.";
+//======================Texto a ser criptografado======================
+//const text = "An obscure body in the S-K System, your majesty. The inhabitants refer to it as the planet Earth.";
 
-async function digestMessage(message) {
-  const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
-  const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
-  const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-  const hashHex = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join(""); // convert bytes to hex string
-  return hashHex;
-}
+//======================Função de criptografia======================
+// async function digestMessage(message) {
+//   const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
+//   const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
+//   const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+//   const hashHex = hashArray
+//     .map((b) => b.toString(16).padStart(2, "0"))
+//     .join(""); // convert bytes to hex string
+//   return hashHex;
+// }
 
-//digestMessage().then((digestHex) => console.log(digestHex));
+//digestMessage(text).then((digestHex) => console.log(digestHex));
+
+//======================Código retirado da documentação======================
+//https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
