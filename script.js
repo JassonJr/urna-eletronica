@@ -4,15 +4,33 @@ let nomeCandidato1;
 let nomeCandidato2;
 let nomeCandidato3;
 
-let candidatos = [[17,"Bolsonaryo"],[13,"Lucas"],[5,"Juliana"],[8,"Thiago"],[22,"Kauan"]]
+let candidatos = [
+    {nome: "Bolsonaryo", num: 17, partido: "PPF", qtdVotos: 15},
+    {nome: "Lucas", num: 13, partido: "AACD", qtdVotos: 23},
+    {nome: "Thiago", num: 80, partido: "AA", qtdVotos: 23},
+    {nome: "Kauan", num: 22, partido: "VASP", qtdVotos: 34},
+    {nome: "Juliana", num: 50, partido: "ACDC", qtdVotos: 0},
+    {nome: "Branco", num: 5, partido: "", qtdVotos: 0}
+]
 
-//Verifica voto para candidatos pré-configurados
-for(let i=0; i<candidatos.length;i++) {
-    for(let j=0; j<candidatos[i].length;j++) {
-        //console.log(candidatos[i][j])
-        if(candidatos[i][j]==8) console.log(candidatos[i][1])
+candidatos.sort(function(a, b) {
+    if(a.qtdVotos > b.qtdVotos) return -1 
+    else return true
+})
+
+console.log(`O candidato ganhador é: ${candidatos[0].nome} ${candidatos[0].partido} `)
+
+for (let i=1; i < candidatos.length;i++) {
+    if (candidatos[0].qtdVotos == candidatos[i].qtdVotos) {
+        console.log("Empate!!!!")
+        break
     }
 }
+
+//Verifica voto para candidatos pré-configurados
+// for(let i=0; i<candidatos.length;i++) {
+//         if(candidatos[i].num==voto) console.log(candidatos[i].qtdVotos)
+// }
 
 let data
 
@@ -46,27 +64,35 @@ function urnaEletronica() {
 
     console.log('** CONFIGURAÇÃO DA URNA **')
     let senhaMesario = parseInt(prompt('Configure a senha do mesário: '))
-    do {
-        nomeCandidato1 = prompt('Digite o nome do primeiro candidato')
-        nomeCandidato2 = prompt('Digite o nome do segundo candidato')
-        nomeCandidato3 = prompt('Digite o nome do terceiro candidato')
+    //===========================configuração dos candidatos==========================
+    // do {
+    //     nomeCandidato1 = prompt('Digite o nome do primeiro candidato')
+    //     nomeCandidato2 = prompt('Digite o nome do segundo candidato')
+    //     nomeCandidato3 = prompt('Digite o nome do terceiro candidato')
 
-        console.log('** NOMES DOS CANDIDATOS **')
-        console.log('Candidato 1: '+ nomeCandidato1)
-        console.log('Candidato 2: '+ nomeCandidato2)
-        console.log('Candidato 3: '+ nomeCandidato3)
+    //     console.log('** NOMES DOS CANDIDATOS **')
+    //     console.log('Candidato 1: '+ nomeCandidato1)
+    //     console.log('Candidato 2: '+ nomeCandidato2)
+    //     console.log('Candidato 3: '+ nomeCandidato3)
  
-    } while (!confirm('Se o nomes dos candidatos estão corretos, clique em OK para continuar ou CANCELAR para voltar e digitar novamente.'))
+    // } while (!confirm('Se o nomes dos candidatos estão corretos, clique em OK para continuar ou CANCELAR para voltar e digitar novamente.'))
+
+    //=========================data===================//
     data = new Date()
     do {
         console.clear()
         console.log('Opções de voto:')
-        console.log('(1) Candidato 1: '+ nomeCandidato1)
-        console.log('(2) Candidato 2: '+ nomeCandidato2)
-        console.log('(3) Candidato 3: '+ nomeCandidato3)
-        console.log('(5) Branco')
-        console.log('(8) Nulo')
+        for(let a=0; a < candidatos.length;a++) {
+            console.log(`(${candidatos[i].num}) ${candidatos[i].nome} ${candidatos[i].partido}`)
+        }
+        
+        // console.log('(1) Candidato 1: '+ nomeCandidato1)
+        // console.log('(2) Candidato 2: '+ nomeCandidato2)
+        // console.log('(3) Candidato 3: '+ nomeCandidato3)
+        // console.log('(5) Branco')
+        // console.log('(8) Nulo')
         voto = parseInt(prompt('Digite sua opção de voto'))
+        totalVotos++
         
         // //Verifica voto para candidatos pré-configurados
         // for(let i=0; i<candidatos.length;i++) {
@@ -75,7 +101,6 @@ function urnaEletronica() {
         //     }
         // }
         
-        totalVotos++
         usuarioConfirmaVoto()
         if (voto == 1 && confirmaVoto) {
             votosCandidato1++
@@ -151,15 +176,21 @@ function urnaEletronica() {
 }
 
 function usuarioConfirmaVoto() {
-if (voto == 1) {
-    confirmaVoto = confirm('Candidato '+ nomeCandidato1 + ' selecionado, confirma esta opção de voto?')
-} else if (voto == 2) {
-    confirmaVoto = confirm('Candidato '+ nomeCandidato2 + ' selecionado, confirma esta opção de voto?')
-} else if (voto == 3) {
-    confirmaVoto = confirm('Candidato '+ nomeCandidato3 + ' selecionado, confirma esta opção de voto?')
-} else if (voto == 5) {
-    confirmaVoto = confirm('Voto Branco selecionado, confirma esta opção de voto?')
-}
+    for(let b=0;b < candidatos.length; b++) {
+        if (voto==candidatos[b].num) {
+            confirmaVoto = confirm(`Candidato ${candidatos[b].nome} selecionado, confirma esta opção de voto?`)
+        }
+    }
+
+// if (voto == 1) {
+//     confirmaVoto = confirm('Candidato '+ nomeCandidato1 + ' selecionado, confirma esta opção de voto?')
+// } else if (voto == 2) {
+//     confirmaVoto = confirm('Candidato '+ nomeCandidato2 + ' selecionado, confirma esta opção de voto?')
+// } else if (voto == 3) {
+//     confirmaVoto = confirm('Candidato '+ nomeCandidato3 + ' selecionado, confirma esta opção de voto?')
+// } else if (voto == 5) {
+//     confirmaVoto = confirm('Voto Branco selecionado, confirma esta opção de voto?')
+// }
 return 
 }
 
