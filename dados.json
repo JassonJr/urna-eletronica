@@ -1,0 +1,40 @@
+{
+    "candidatos": [
+        {
+            "nome": "Bolsonaryo", 
+            "num": 17, 
+            "partido": "PPF", 
+            "qtdVotos": 0
+        },
+        {
+            "nome": "Lucas", 
+            "num": 13, 
+            "partido": "AACD", 
+            "qtdVotos": 0
+        },
+        {
+            "nome": "Thiago", 
+            "num": 80, 
+            "partido": "AA", 
+            "qtdVotos": 0
+        },
+        {
+            "nome": "Kauan", 
+            "num": 22, 
+            "partido": "VASP", 
+            "qtdVotos": 0
+        },
+        {
+            "nome": "Juliana", 
+            "num": 50, 
+            "partido": "ACDC", 
+            "qtdVotos": 0
+        },
+        {
+            "nome": "Branco", 
+            "num": 5, 
+            "partido": "", 
+            "qtdVotos": 0
+        }
+    ]
+}
