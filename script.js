@@ -2,44 +2,44 @@ let voto = 0, votosNulos = 0, totalVotos = 0, ganhador = true, encerrarVotacao =
 
 
 //===========================configuração dos candidatos==========================
-let candidatos = [
-    {
-        nome: "Bolsonaryo", 
-        num: 17, 
-        partido: "PPF", 
-        qtdVotos: 0
-    },
-    {
-        nome: "Lucas", 
-        num: 13, 
-        partido: "AACD", 
-        qtdVotos: 0
-    },
-    {
-        nome: "Thiago", 
-        num: 80, 
-        partido: "AA", 
-        qtdVotos: 0
-    },
-    {
-        nome: "Kauan", 
-        num: 22, 
-        partido: "VASP", 
-        qtdVotos: 0
-    },
-    {
-        nome: "Juliana", 
-        num: 50, 
-        partido: "ACDC", 
-        qtdVotos: 0
-    },
-    {
-        nome: "Branco", 
-        num: 5, 
-        partido: "", 
-        qtdVotos: 0
-    }
-]
+// let candidatos = [
+//     {
+//         nome: "Bolsonaryo", 
+//         num: 17, 
+//         partido: "PPF", 
+//         qtdVotos: 0
+//     },
+//     {
+//         nome: "Lucas", 
+//         num: 13, 
+//         partido: "AACD", 
+//         qtdVotos: 0
+//     },
+//     {
+//         nome: "Thiago", 
+//         num: 80, 
+//         partido: "AA", 
+//         qtdVotos: 0
+//     },
+//     {
+//         nome: "Kauan", 
+//         num: 22, 
+//         partido: "VASP", 
+//         qtdVotos: 0
+//     },
+//     {
+//         nome: "Juliana", 
+//         num: 50, 
+//         partido: "ACDC", 
+//         qtdVotos: 0
+//     },
+//     {
+//         nome: "Branco", 
+//         num: 5, 
+//         partido: "", 
+//         qtdVotos: 0
+//     }
+// ]
 
 // candidatos.sort(function(a, b) {
 //     if(a.qtdVotos > b.qtdVotos) return -1 
@@ -59,6 +59,15 @@ let candidatos = [
 // for(let i=0; i<candidatos.length;i++) {
 //         if(candidatos[i].num==voto) console.log(candidatos[i].qtdVotos)
 // }
+
+let candidatos
+
+fetch('./dados.json')
+.then((response) => response.json())
+      .then((json) => {
+        candidatos = json.candidatos;
+        console.log(candidatos[0].nome);
+      });
 
 let data
 
@@ -195,7 +204,9 @@ verificarIntegridadeUrna().then(verificacao => {
     if(verificacao.status) {
         console.log("Hashes veríficados, urna íntegra")
     } else {
-
+        console.log('URNA ADULTERADA!');
+        console.log(`Hash da urna: ${verificacao.hashUrnaAtual}`);
+        console.log(`Hash esperado: ${verificacao.hashVerificado}`);
     }
 })
 
